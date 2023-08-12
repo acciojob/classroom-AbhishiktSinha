@@ -67,13 +67,18 @@ public class StudentRepository {
     }
 
     public void deleteTeacherByName(String teacherName) {
+        List<String> studentList = pairMap.get(teacherName);
+        for(String name : studentList) {
+            studentMap.remove(name);
+        }
         teacherMap.remove(teacherName);
         pairMap.remove(teacherName);
     }
 
     public void deleteAllTeachers() {
-        teacherMap.clear();
-        pairMap.clear();
+        for(String name : teacherMap.keySet()) {
+            deleteTeacherByName(name);
+        }
     }
 
 }
