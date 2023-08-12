@@ -40,19 +40,19 @@ public class StudentRepository {
         }
         else {
             List<String> studentList = pairMap.getOrDefault(teacherName, new ArrayList<>());
-
             studentList.add(studentName);
             pairMap.put(teacherName, studentList);
+
             Teacher teacher = teacherMap.get(teacherName);
             teacher.setNumberOfStudents(studentList.size());
         }
     }
 
     public Student getStudentByName(String studentName) {
-        return studentMap.getOrDefault(studentName, null);
+        return studentMap.get(studentName);
     }
     public Teacher getTeacherByName(String teacherName) {
-        return teacherMap.getOrDefault(teacherName, null);
+        return teacherMap.get(teacherName);
     }
 
     public List<String> getStudentsByTeacherName(String teacherName) {
@@ -67,7 +67,7 @@ public class StudentRepository {
     }
 
     public void deleteTeacherByName(String teacherName) {
-        List<String> studentList = pairMap.get(teacherName);
+        List<String> studentList = pairMap.getOrDefault(teacherName, new ArrayList<>());
         for(String name : studentList) {
             studentMap.remove(name);
         }
