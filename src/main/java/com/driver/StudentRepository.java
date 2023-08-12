@@ -24,71 +24,39 @@ public class StudentRepository {
     private Map<String, Teacher> teacherMap = new HashMap<>();
     private Map<String, List<String>> pairMap = new HashMap<>();
 
-    public String addStudent(Student newStudent)throws Exception {
+    public void addStudent(Student newStudent){
         String studentName = newStudent.getName();
-        if(studentMap.containsKey(studentName)) {
-            throw new InvalidNameException();
-        }
-        else {
-            studentMap.put(studentName, newStudent);
-            return "SUCCESS";
-        }
+        studentMap.put(studentName, newStudent);
     }
-    public String addTeacher(Teacher newTeacher)throws Exception {
+    public void addTeacher(Teacher newTeacher) {
         String teacherName = newTeacher.getName();
-        if(teacherMap.containsKey(teacherName)) {
-            throw new InvalidNameException();
-        }
-        else {
-            teacherMap.put(teacherName, newTeacher);
-            return "SUCCESS";
-        }
+        teacherMap.put(teacherName, newTeacher);
     }
 
-    public String addStudentTeacherPair(String teacherName, String studentName)throws Exception {
+    public void addStudentTeacherPair(String teacherName, String studentName) {
 
         if(!teacherMap.containsKey(teacherName) || !studentMap.containsKey(studentName)) {
-            throw new InvalidNameException();
+            return;
         }
         else {
             List<String> studentList = pairMap.getOrDefault(teacherName, new ArrayList<>());
-            if(studentList.contains(studentName)) {
-                throw new AlreadyPairedException();
-            }
-            else {
-                studentList.add(studentName);
-                pairMap.put(teacherName, studentList);
-                Teacher teacher = teacherMap.get(teacherName);
-                teacher.setNumberOfStudents(studentList.size());
-                return "SUCCESS";
-            }
+
+            studentList.add(studentName);
+            pairMap.put(teacherName, studentList);
+            Teacher teacher = teacherMap.get(teacherName);
+            teacher.setNumberOfStudents(studentList.size());
         }
     }
 
-    public Student getStudentByName(String studentName)throws Exception {
-        if(!studentMap.containsKey(studentName)){
-            throw new InvalidNameException();
-        }
-        else{
-            return studentMap.get(studentName);
-        }
+    public Student getStudentByName(String studentName) {
+        return studentMap.getOrDefault(studentName, null);
     }
-    public Teacher getTeacherByName(String teacherName)throws Exception {
-        if(!teacherMap.containsKey(teacherName)){
-            throw new InvalidNameException();
-        }
-        else{
-            return teacherMap.get(teacherName);
-        }
+    public Teacher getTeacherByName(String teacherName) {
+        return teacherMap.getOrDefault(teacherName, null);
     }
 
-    public List<String> getStudentsByTeacherName(String teacherName)throws Exception {
-        if(!teacherMap.containsKey(teacherName)) {
-            throw new InvalidNameException();
-        }
-        else{
-            return pairMap.getOrDefault(teacherName, new ArrayList<String>());
-        }
+    public List<String> getStudentsByTeacherName(String teacherName) {
+        return pairMap.getOrDefault(teacherName, new ArrayList<String>());
     }
     public List<String> getAllStudents() {
         List<String> allStudents = new ArrayList<>();
@@ -98,15 +66,9 @@ public class StudentRepository {
         return allStudents;
     }
 
-    public String deleteTeacherByName(String teacherName) throws Exception {
-        if(!teacherMap.containsKey(teacherName)) {
-            throw new InvalidNameException();
-        }
-        else{
-            teacherMap.remove(teacherName);
-            pairMap.remove(teacherName);
-            return "SUCCESS";
-        }
+    public void deleteTeacherByName(String teacherName) {
+        teacherMap.remove(teacherName);
+        pairMap.remove(teacherName);
     }
 
     public void deleteAllTeachers() {

@@ -12,84 +12,33 @@ public class StudentService {
     @Autowired
     StudentRepository repoObj = new StudentRepository();
 
-    public String addStudent(Student student)  {
-        try{
-            repoObj.addStudent(student);
-            return "SUCCESS";
-        }
-        catch(InvalidNameException e) {
-            return "FALIURE";
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void addStudent(Student student)  {
+        repoObj.addStudent(student);
     }
-    public String addTeacher(Teacher teacher) {
-        try{
-            repoObj.addTeacher(teacher);
-            return "SUCCESS";
-        }
-        catch(InvalidNameException e) {
-            return "FAILURE";
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void addTeacher(Teacher teacher) {
+        repoObj.addTeacher(teacher);
     }
 
-    public String addStudentTeacherPair(String teacherName, String studentName) {
-        try{
-            repoObj.addStudentTeacherPair(teacherName, studentName);
-            return "SUCCESS";
-        }
-        catch(InvalidNameException e) {
-            return "FAILURE";
-        }catch(AlreadyPairedException e) {
-            return "FAILURE";
-        }catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void addStudentTeacherPair(String teacherName, String studentName) {
+        repoObj.addStudentTeacherPair(teacherName, studentName);
     }
 
     public Student getStudentByName(String name) {
-        try {
-            return repoObj.getStudentByName(name);
-        } catch (InvalidNameException e) {
-            return null;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return repoObj.getStudentByName(name);
     }
     public Teacher getTeacherByTeacherName(String name) {
-        try {
-            return repoObj.getTeacherByName(name);
-        } catch(InvalidNameException e) {
-            return null;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return repoObj.getTeacherByName(name);
     }
 
     public List<String> getStudentsByTeacherName(String name) {
-        try {
-            return repoObj.getStudentsByTeacherName(name);
-        } catch (InvalidNameException e) {
-            return new ArrayList<>();
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return repoObj.getStudentsByTeacherName(name);
     }
     public List<String> getAllStudents() {
         return repoObj.getAllStudents();
     }
 
-    public String deleteTeacherByName(String name) {
-        try {
-            return repoObj.deleteTeacherByName(name);
-        } catch (InvalidNameException e) {
-            return "FAILURE";
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void deleteTeacherByName(String name) {
+        repoObj.deleteTeacherByName(name);
     }
     public void deleteAllTeachers() {
         repoObj.deleteAllTeachers();

@@ -23,38 +23,22 @@ public class StudentController {
     StudentService servObj = new StudentService();
     @PostMapping("/add-student")
     public ResponseEntity<String> addStudent(@RequestBody Student student){
-        String resp = servObj.addStudent(student);
-        if(resp.equals("SUCCESS")) {
-            return new ResponseEntity<>("New student added successfully", HttpStatus.CREATED);
-        }
-        else {
-            return new ResponseEntity<>("Student already exists", HttpStatus.NOT_ACCEPTABLE);
-        }
+        servObj.addStudent(student);
+        return new ResponseEntity<>("New student added successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/add-teacher")
     public ResponseEntity<String> addTeacher(@RequestBody Teacher teacher){
+        servObj.addTeacher(teacher);
 
-        String resp = servObj.addTeacher(teacher);
-        if(resp.equals("SUCCESS")) {
-            return new ResponseEntity<>("New teacher added successfully", HttpStatus.CREATED);
-        }
-        else {
-            return new ResponseEntity<>("Teacher already exists", HttpStatus.NOT_ACCEPTABLE);
-        }
-
+        return new ResponseEntity<>("New teacher added successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/add-student-teacher-pair")
     public ResponseEntity<String> addStudentTeacherPair(@RequestParam String student, @RequestParam String teacher){
 
-        String resp = servObj.addStudentTeacherPair(student, teacher);
-        if(resp.equals("SUCCESS")) {
-            return new ResponseEntity<>("New student-teacher pair added successfully", HttpStatus.CREATED);
-        }
-        else {
-            return new ResponseEntity<>("Invalid name", HttpStatus.NOT_ACCEPTABLE);
-        }
+        servObj.addStudentTeacherPair(student, teacher);
+        return new ResponseEntity<>("New student-teacher pair added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/get-student-by-name/{name}")
@@ -87,13 +71,8 @@ public class StudentController {
 
     @DeleteMapping("/delete-teacher-by-name")
     public ResponseEntity<String> deleteTeacherByName(@RequestParam String teacher){
-        String resp = servObj.deleteTeacherByName(teacher);
-        if(resp.equals("SUCCESS")) {
-            return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.CREATED);
-        }
-        else {
-            return new ResponseEntity<>("Teacher not found", HttpStatus.NOT_ACCEPTABLE);
-        }
+        servObj.deleteTeacherByName(teacher);
+        return new ResponseEntity<>(teacher + " removed successfully", HttpStatus.CREATED);
     }
     @DeleteMapping("/delete-all-teachers")
     public ResponseEntity<String> deleteAllTeachers(){
