@@ -8,14 +8,16 @@ public class Teacher {
 
     private int age;
 
-    public Teacher() {
-
-    }
-
     public Teacher(String name, int age) {
         this.name = name;
         this.age = age;
         this.numberOfStudents = 0;
+    }
+
+    public Teacher(String name, int numberOfStudents, int age) {
+        this.name = name;
+        this.numberOfStudents = numberOfStudents;
+        this.age = age;
     }
 
     public String getName() {
