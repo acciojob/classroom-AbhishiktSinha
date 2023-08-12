@@ -58,6 +58,8 @@ public class StudentRepository {
             else {
                 studentList.add(studentName);
                 pairMap.put(teacherName, studentList);
+                Teacher teacher = teacherMap.get(teacherName);
+                teacher.setNumberOfStudents(studentList.size());
                 return "SUCCESS";
             }
         }
